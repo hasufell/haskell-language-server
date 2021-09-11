@@ -70,7 +70,7 @@ produceCompletions = do
         -- synthetizing a fake module with an empty body from the buffer
         -- in the ModSummary, which preserves all the imports
         ms <- fmap fst <$> useWithStale GetModSummaryWithoutTimestamps file
-        sess <- fmap fst <$> useWithStale GhcSessionDeps file
+        sess <- fmap fst <$> useWithStale (GhcSessionDeps Nothing) file
 
         case (ms, sess) of
             (Just ModSummaryResult{..}, Just sess) -> do
@@ -159,8 +159,6 @@ getCompletionsLSP ide plId
               _ -> return (InL $ List [])
           _ -> return (InL $ List [])
       _ -> return (InL $ List [])
-
-----------------------------------------------------------------------------------------------------
 
 extendImportCommand :: PluginCommand IdeState
 extendImportCommand =
