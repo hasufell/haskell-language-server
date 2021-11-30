@@ -11,10 +11,12 @@ export CABAL_DIR="$CI_PROJECT_DIR/cabal"
 case "$(uname)" in
     MSYS_*|MINGW*)
         export CABAL_DIR="$(cygpath -w "$CABAL_DIR")"
-		GHCUP_BINDIR="${GHCUP_INSTALL_BASE_PREFIX}/ghcup/bin"
+		GHCUP_DIR="${GHCUP_INSTALL_BASE_PREFIX}/ghcup"
+		GHCUP_BINDIR="${GHCUP_DIR}/bin"
         ;;
 	*)
-		GHCUP_BINDIR="${GHCUP_INSTALL_BASE_PREFIX}/.ghcup/bin"
+		GHCUP_DIR="${GHCUP_INSTALL_BASE_PREFIX}/.ghcup"
+		GHCUP_BINDIR="${GHCUP_DIR}/bin"
 		;;
 esac
 
@@ -29,6 +31,7 @@ export BOOTSTRAP_HASKELL_VERBOSE=1
 export BOOTSTRAP_HASKELL_ADJUST_CABAL_CONFIG=yes
 
 curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+source "${GHCUP_DIR}"/env
 
 # some alpines need workaround
 if ghc --info | grep -q integer-simple ; then
