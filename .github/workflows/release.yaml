@@ -113,7 +113,7 @@ jobs:
         shell: sh
         run: |
           ${{ matrix.installCmd }} curl bash git ${{ matrix.toolRequirements }}
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run build
         run: bash .github/scripts/build.sh
         env:
@@ -160,7 +160,7 @@ jobs:
         shell: bash
 
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: 'true'
 
@@ -207,7 +207,7 @@ jobs:
             TARBALL_EXT: tar.xz
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: 'true'
 
@@ -251,13 +251,13 @@ jobs:
             ARCH: 64
             TARBALL_EXT: zip
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: msys2/setup-msys2@v2
         with:
           install: make mingw-w64-x86_64-clang curl autoconf mingw-w64-x86_64-pkgconf ca-certificates base-devel gettext autoconf make libtool automake python p7zip patch unzip zip
 
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: 'true'
 
